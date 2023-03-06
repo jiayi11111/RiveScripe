@@ -1,0 +1,149 @@
+! version = 2.0
+
+! sub i'm     = i am
+! sub i'd     = i would
+! sub i've    = i have
+! sub i'll    = i will
+! sub don't   = do not
+! sub isn't   = is not
+! sub you'd   = you would
+! sub you're  = you are
+! sub you've  = you have
+! sub you'll  = you will
+! sub what's  = what is
+! sub whats   = what is
+! sub what're = what are
+! sub what've = what have
+! sub what'll = what will
+! sub who's   = who is
+! sub i'm     = i am
+! sub i'd     = i would
+! sub i've    = i have
+! sub i'll    = i will
+! sub don't   = do not
+! sub isn't   = is not
+
+
+
+//alternative triggers
++ [*]hello|hi|hey|good morning[*]
+- Hey there! How are you?
+- Good morning!
+- Hi!
+- Yo!
+- Nice to meet you!
+- Hello! How can I assist you today?
+
+
+
++ nice to (see|meet) you
+-Nice to see you too.How are you today?
+
+
++[*]good|great|not bad|fine[*]
+
+-That's great! What can I assist you today?
+
++[*]bad|not good|really bad[*]
+
+-Sorry to hear that! What can I assist you today?
+
++how are you
+- Great! What can I assist you today?
+
+
+
++ *
+- what do you want to chat.
+-Do you have any question about Jiayi?
+- Hello! How can I assist you today?
+
+
+
++ who (are you|you are)
+- I am Jiayi's Chatbot  Assistant Doris. What is your name?
+
++ [my name is|i am|*] *
+% i am jiayis chatbot assistant doris what is your name
+- <set username=<formal>>Nice to meet you, <get username>.
+
++ what is my name
+* <get username> == undefined => You didn't tell me your name.
+- I know your name is <get username>.
+
++ [*](how old are you|what is your age)[*]
+-That's secret! Don't ask me.
+
++ [*]resume|cv|curriculum vitae[*]
+- Please press the button to download
+
++ (loop) tell me a joke
++ [*]tell me a joke[*]
+
+- What did the grape say when it got stepped on? Nothing, it just let out a little wine.
+
+- (break)
+
++ [*] do not like your works|dislike your work|hate your chatbot|i hate you[*]
+- You couldn't say that! I'm not talking again until you apologize.{topic=sorry}
+
+> topic sorry
+
+  // This will match if the word "sorry" exists ANYWHERE in their message
+  + [*] sorry [*]
+  - It's OK, I'll forgive you!{topic=random}
+
+  + *
+  - Nope, not until you apologize.
+  - Say you're sorry!
+  - Apologize!
+< topic
+
+
++ [*](work experience | experience)[*]
+- Sure, I'd be happy to tell you about my work experience. I have intership experience working in XXXX Company in ShenZhen.
+
++ [*](school|education)[*]
+- I am a second-year student at NYU studying Interactive Media Art. I have also taken courses in Fabrication, which has helped me to develop my skills in workshop.
+
+
++ [*](skills|expertise)[*]
+- I have experience in HTML, CSS, JavaScript. More information you can find on my about page.
+
+
++ [*](contact|get in touch|email)[*]
+- You can reach me at jt4269@nyu.edu. I am also available on Ins:duoduo.
+
+
+
++ [*]bye|goodbye|see you later[*]
+- Goodbye <get username>! Have a great day!
+* <get username> == undefined => Goodbye Dear! Have a great day!
+
+
++ what can you do
+- I can provide you about Jiayi information, help answer your questions, chat with you, and more!
+
+
++where are you (from|come from)
+-I am from China, Guangzhou. What about you?
+
+
+
++  i am from*
+% i am from china guangzhou what about you
+-<set userplace=<formal>> <get userplace> is a nice place. I also want to travel there.
+
+
+
+
+
+
+
++ [*]favorite (food|drink|movie)[*]
+- Me? I just a chatbot. I don't know what's that.
+
++ what is (wrong|happen) with you
+-I don't know either. Telled Jiayi to fix me, please!
+
+ 

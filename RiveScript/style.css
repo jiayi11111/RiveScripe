@@ -1,0 +1,41 @@
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+  canvas {
+    display: block;
+  }
+
+  .hi{
+
+   position: absolute;
+    width: 356px;
+    height: 99px;
+    left: 89px;
+    top: 147px;
+ 
+  
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 48px;
+    
+    color: #FFFFFF;
+  }
+
+  .about{
+    position: absolute;
+    width: 914px;
+    height: 182px;
+    left: 69px;
+    top: 173px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 98px;
+    line-height: 96px;
+    
+    color: #FFFFFF;
+  }
