@@ -5,6 +5,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/IDMNYU/p5.js-speech@0.0.3/lib/p5.speech.js"></script>
     <script src="https://unpkg.com/rivescript@latest/dist/rivescript.min.js"></script>
+
+    <script src="https://unpkg.com/rita"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
@@ -13,6 +18,13 @@
   <body>
     <h1 class="hi">Hi, Let's talk</h1>
     <h2 class="about">about Jiayi.</h2>
+
+    <div id="questionDiv"></div>
+    
+
+
+<!-- <input type="text" id="inputField" onkeyup="updateQuestion()">
+<input id="input" type="text" oninput="onInput()"> -->
     <!-- <h3 class="ability">capabilities of chatbot assistant</h3>
     <h4 class="Greeting">Greetings</h4>
     <h4 class="information">Information about me </h4>

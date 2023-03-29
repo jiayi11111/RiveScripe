@@ -27,12 +27,19 @@
 
 //alternative triggers
 + [*]hello|hi|hey|good morning[*]
-- Hey there! How are you?
-- Good morning!
-- Hi!
-- Yo!
-- Nice to meet you!
-- Hello! How can I assist you today?
+- Hey there! What do you want to chat today?{topic=greet}
+- Good morning! What do you want to chat today?{topic=greet}
+- Hi! Do you have something to chat with me?{topic=greet}
+- Yo! Welcome to our chat. Is there anything you'd like to know about me?{topic=greet}
+- Nice to meet you! Welcome to our chat. Is there anything you'd like to know about me?{topic=greet}
+- Hello! How can I help you today?
+
+>topic greet
++*
+-Ohh, wait! Before I assist you, do you mind telling me your name?{topic=name}
+
+<topic
+
 
 
 
@@ -42,37 +49,87 @@
 
 +[*]good|great|not bad|fine[*]
 
--That's great! What can I assist you today?
+-That's great! Can I get your name first?
 
 +[*]bad|not good|really bad[*]
 
--Sorry to hear that! What can I assist you today?
+-Sorry to hear that! May I know your name?
 
 +how are you
-- Great! What can I assist you today?
+- Great! May I get your name?
+- Great! What's your name?
 
-
-
-+ *
-- what do you want to chat.
--Do you have any question about Jiayi?
-- Hello! How can I assist you today?
 
 
 
 + who (are you|you are)
 - I am Jiayi's Chatbot  Assistant Doris. What is your name?
 
-+ [my name is|i am|*] *
-% i am jiayis chatbot assistant doris what is your name
-- <set username=<formal>>Nice to meet you, <get username>.
+>topic name
++ (my name is|i am|*)
+
+- <set username=<formal>>Nice to meet you, <get username>. I recently learned to eveluate human's personality. Do you want to try?{topic=yes}
+<topic
+
+>topic yes
++[*]yes|sure|of course[*]
+
+-Say "evaluate my personality" to start{topic=evaluate}
+
++[*]no[*]
+-Sure, you can ask me what you want.{topic=random}
+
+<topic
+
+
+
+>topic evaluate
++ evaluate my personality
+- Sure, I can help you with that. Let's get started. First question: How do you usually approach new situations or challenges? Answer me optimistic or pessimistic.{topic=pessimistic}
+
+<topic
+
+>topic pessimistic
++ [*] optimistic [*]
+-  <add healthscore=1>Great, thanks for sharing. Next question: How do you typically interact with others in social situations? Answer me outgoing or introverted.{topic=shy}
+
++ [*] pessimistic [*]
+- <sub healthscore=1>Sorry to hear that. Next question: How do you typically interact with others in social situations? Answer me outgoing or introverted.{topic=shy}
+
+< topic 
+
+>topic shy
++ [*] outgoing [*]
+-  <add healthscore=1>Interesting. Final question: How do you deal with stress or adversity? Answer me handle stress or feel anxious{topic=stress}
+
++ [*] introverted [*]
+-<sub healthscore=1> That's fine, Final question: How do you deal with stress or adversity? Answer me handle stress or feel anxious{topic=stress}
+<topic
+
+>topic stress
++ [*] handle stress [*]
+* <get healthscore> > 0 => <get username>, based on your responses, it seems like you have an outgoing and optimistic personality. You tend to approach new situations with a positive attitude.{topic=finish}
+*<get healthscore> == 0 => <get username>, based on your responses, it seems like you have an outgoing and optimistic personality. You tend to approach new situations with a positive attitude.{topic=finish}
+* <get healthscore> < 0 => <get username>, based on your responses, it seems like you may have a more reserved and cautious personality, and may struggle with negativity or pessimism at times. {topic=finish}
++ [*] feel anxious [*]
+* <get healthscore> < 0 => <get username>, based on your responses, it seems like you may have a more reserved and cautious personality, and may struggle with negativity or pessimism at times. {topic=finish}
+*<get healthscore> == 0 => <get username>, based on your responses, it seems like you may have a more reserved and cautious personality, and may struggle with negativity or pessimism at times. {topic=finish}
+* <get healthscore> > 0 => <get username>, based on your responses, it seems like you have an outgoing and optimistic personality. You tend to approach new situations with a positive attitude.{topic=finish}
+<topic
+
+>topic finish
++ *
+-Thank you for trying, my answer is for reference only. Let's ask me other questions!{topic=random}
+<topic
+
+
 
 + what is my name
 * <get username> == undefined => You didn't tell me your name.
 - I know your name is <get username>.
 
 + [*](how old are you|what is your age)[*]
--That's secret! Don't ask me.
+-That's secret! Don't ask me. You can try to ask me where are you from?
 
 + [*]resume|cv|curriculum vitae[*]
 - Please press the button to download
@@ -84,7 +141,7 @@
 
 - (break)
 
-+ [*] do not like your works|dislike your work|hate your chatbot|i hate you[*]
++ [*] do not like your works|dislike your work|hate your chatbot|i hate you|you so stupid|silly|foolish|dumb[*]
 - You couldn't say that! I'm not talking again until you apologize.{topic=sorry}
 
 > topic sorry
@@ -130,7 +187,7 @@
 
 
 
-+  i am from*
++  *
 % i am from china guangzhou what about you
 -<set userplace=<formal>> <get userplace> is a nice place. I also want to travel there.
 
@@ -140,10 +197,85 @@
 
 
 
-+ [*]favorite (food|drink|movie)[*]
-- Me? I just a chatbot. I don't know what's that.
++[*] you (food|drink|movie)[*]
+- Me? I just a chatbot. I don't know what's that. 
+
++[*]jiayi*food [*]
+
+-Jiayi like Chinese, Thailand, Korean, and Japanese food. Which food do you like?{topic=food}
+
+>topic food
++*
+-<set food=<formal>> <get food> food is also very great. Do you have favorite drink?{topic=drink}
+<topic
+
++[*]jiayi *drink[*]
+
+-Jiayi like Milk tea. What about you?{topic=drink} 
+
+>topic drink
++*
+-That's great! But you can reduce the intake of sugar in your daily life.{topic=next}
+
+<topic 
+
+>topic next
++*
+-Do you have other questions about Jiayi?{topic=random}
+<topic
+
++[*]jiayi *movie[*]
+% me i just a chatbot i do not know what is that
+-Jiayi like Marvel Cinematic Universe films.
 
 + what is (wrong|happen) with you
 -I don't know either. Telled Jiayi to fix me, please!
 
- 
+
+
+^ERR
+-{call typeResult}{previous}<star>{/previous}{/call}
+
+
+
+
+
++ are you an ai
+- Yes, I'm an artificial intelligence chatbot.
+
+
++ do you speak other languages
+- I can speak some other languages, but Chinese is my best language.
+
++ what is your favorite color
+- As a chatbot, I don't have a favorite color.
+
++ what do you think is love
+- Love is a strong emotion that can make people care and support each other, and make people happier and more fulfilled.
+
++ can you sing
+- Sorry, I can't sing, but I can provide some information about music.
+
+
+
+
+// Questions about Weather
++ what is the weather like today
+- The weather today is {@weather today}.
+
++ will it rain tomorrow
+- The weather {@if ({@weather tomorrow} == "rainy")}will be rainy tomorrow.{@else}will not be rainy tomorrow.{@endif}
+
+// Questions about Geography
++ where is beijing
+- Beijing is the capital of China, located in the north of China.
+
++ how big is shanghai
+- Shanghai is one of the largest cities in China, with a population of over 25 million people.
+
++ do you like traveling
+- As a chatbot, I don't have senses or personal preferences, but I can provide information about traveling.
+
+
+
+
